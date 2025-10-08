@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Akbarrudin | Web Developer</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #1b1b1b; /* abu gelap */
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    /* ==== HEADER ==== */
+    header {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      background: rgba(20, 20, 20, 0.85);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 25px 80px;
+      z-index: 10;
+    }
+
+    .logo {
+      font-size: 1.8em;
+      font-weight: 700;
+      color: #2e8bff; /* biru gelap */
+    }
+
+    nav a {
+      color: #fff;
+      margin-left: 25px;
+      position: relative;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: #2e8bff;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #2e8bff;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* ==== HERO SECTION ==== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 100px 80px 50px;
+      text-align: left;
+      gap: 60px;
+    }
+
+    .profile-img {
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid #2e8bff;
+      box-shadow: 0 0 25px rgba(46, 139, 255, 0.6);
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .hero-text {
+      max-width: 600px;
+    }
+
+    .hero-text h1 {
+      font-size: 3em;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .hero-text h1 span {
+      color: #2e8bff;
+    }
+
+    .hero-text h3 {
+      font-size: 1.8em;
+      font-weight: 600;
+      color: #2e8bff;
+      margin-bottom: 15px;
+    }
+
+    .hero-text p {
+      font-size: 1em;
+      color: #ccc;
+      line-height: 1.7;
+      margin-bottom: 30px;
+      text-align: justify;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 30px;
+      border: 2px solid #2e8bff;
+      color: #2e8bff;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #2e8bff;
+      color: #fff;
+      box-shadow: 0 0 20px #2e8bff;
+    }
+
+    /* ==== PROJECT SECTION ==== */
+    .projects {
+      background: #111;
+      padding: 80px 80px;
+      text-align: center;
+    }
+
+    .projects h2 {
+      font-size: 2.5em;
+      color: #2e8bff;
+      margin-bottom: 50px;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+    }
+
+    .project-card {
+      background: #1e1e1e;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(46, 139, 255, 0.3);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 0 25px rgba(46, 139, 255, 0.6);
+    }
+
+    .project-card img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .project-card h3 {
+      color: #fff;
+      font-size: 1.3em;
+      margin-bottom: 10px;
+    }
+
+    .project-card p {
+      color: #aaa;
+      font-size: 0.9em;
+    }
+
+    /* ==== RESPONSIVE ==== */
+    @media (max-width: 900px) {
+      header {
+        padding: 20px 40px;
+      }
+      .hero {
+        flex-direction: column;
+        text-align: center;
+      }
+      .hero-text h1 {
+        font-size: 2.5em;
+      }
+      .hero-text h3 {
+        font-size: 1.3em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="particles"></canvas>
+
+  <header>
+    <div class="logo">Akbarrudin</div>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="home">
+    <img src="c:\Users\mukri\OneDrive\Pictures\IMG_20250220_201654_288.jpg" alt="Profile" class="profile-img"> <!-- Ganti your-photo.jpg dengan foto kamu -->
+    <div class="hero-text">
+      <h1>Hi, I'm <span>Akbarrudin</span></h1>
+      <h3>Web Developer & Creative Designer</h3>
+      <p>
+        Saya seorang pengembang web yang berfokus menciptakan desain profesional, interaktif, dan fungsional. 
+        Saya mencintai teknologi, animasi visual, dan pengalaman pengguna yang memikat.
+      </p>
+      <a href="#" class="btn">Download CV</a>
+    </div>
+  </section>
+
+  <section class="projects" id="projects">
+    <h2>💗My Honey💗</h2>
+    <div class="project-grid">
+      <div class="project-card">
+        <img src="c:\Users\mukri\OneDrive\Pictures\IMG_20241208_161843_372.jpg" alt="Project 1">
+        <h3>🥵🥵🥵🥵🥵</h3>
+        <p></p>
+      </div>
+      <div class="project-card">
+        <img src="c:\Users\mukri\OneDrive\Pictures\IMG-20250320-WA0018.jpg" alt="Project 2">
+        <h3>🥵🥵🥵🥵🥵</h3>
+        <p></p>
+      </div>
+      <div class="project-card">
+        <img src="c:\Users\mukri\OneDrive\Pictures\IMG-20250320-WA0019.jpg" alt="Project 3">
+        <h3>🥵🥵🥵🥵🥵</h3>
+        <p></p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const canvas = document.getElementById("particles");
+    const ctx = canvas.getContext("2d");
+    let particlesArray;
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    window.addEventListener("resize", () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      init();
+    });
+
+    class Particle {
+      constructor(x, y, size, color, speedX, speedY) {
+        this.x = x;
+        this.y = y;
+        this.size = size;
+        this.color = color;
+        this.speedX = speedX;
+        this.speedY = speedY;
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = this.color;
+        ctx.fillStyle = this.color;
+        ctx.fill();
+      }
+    }
+
+    function init() {
+      particlesArray = [];
+      const colors = ["#2e8bff", "#66b2ff", "#99ccff", "#ffffff"];
+      for (let i = 0; i < 120; i++) {
+        const size = Math.random() * 2 + 1;
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        const speedX = (Math.random() - 0.5) * 0.8;
+        const speedY = (Math.random() - 0.5) * 0.8;
+        particlesArray.push(new Particle(x, y, size, color, speedX, speedY));
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particlesArray.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+
+    init();
+    animate();
+  </script>
+
+</body>
+</html>
